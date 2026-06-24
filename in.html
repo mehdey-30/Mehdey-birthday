@@ -226,6 +226,119 @@ input, textarea { font-family: var(--font-body); }
 }
 
 /* ============================================================
+   MUSIC UPLOAD PANEL
+   ============================================================ */
+#music-upload-panel {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 9100;
+  background: rgba(26,10,16,0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 1.2rem 1.5rem;
+  min-width: 220px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.4s;
+}
+#music-upload-panel.hidden { transform: translateY(120%); opacity: 0; pointer-events: none; }
+.mup-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.mup-controls { display: flex; flex-direction: column; gap: 0.6rem; }
+.mup-btn {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: rgba(212,175,55,0.1);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 0.6rem 0.9rem;
+  color: var(--text-light);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: var(--font-body);
+  width: 100%;
+  text-align: left;
+}
+.mup-btn:hover { background: rgba(212,175,55,0.18); border-color: var(--gold); color: var(--gold); }
+.mup-btn i { color: var(--gold); width: 14px; }
+.mup-btn input[type=file] { display: none; }
+.mup-toggle-btn {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 9200;
+  width: 42px; height: 42px;
+  background: rgba(107,33,55,0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(107,33,55,0.4);
+}
+.mup-toggle-btn:hover { box-shadow: 0 0 24px rgba(212,175,55,0.4); }
+.mup-now-playing {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+.mup-now-playing span { color: var(--champagne); }
+
+/* WhatsApp badge on guestbook button */
+.btn-whatsapp {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border: 1px solid rgba(37,211,102,0.3);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+  font-family: var(--font-body);
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+.btn-whatsapp:hover { box-shadow: 0 8px 40px rgba(37,211,102,0.45); transform: translateY(-2px); }
+.wish-wall-wa {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.65rem; color: #25D366;
+  margin-top: 0.4rem;
+  letter-spacing: 0.1em;
+}
+.wish-wall-wa i { font-size: 0.75rem; }
+.wish-status {
+  text-align: center;
+  font-size: 0.75rem;
+  margin-top: 0.8rem;
+  min-height: 1.2em;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+.wish-status.success { color: #25D366; }
+.wish-status.error { color: #ff6b6b; }
+
+/* ============================================================
    MUSIC INDICATOR
    ============================================================ */
 #music-hint {
@@ -1126,57 +1239,6 @@ input, textarea { font-family: var(--font-body); }
 }
 .gallery-overlay-icons a:hover { background: var(--gold); color: var(--dark); }
 
-.gallery-item {
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.gallery-blur .gallery-item:not(.active) {
-  filter: blur(6px);
-  transform: scale(0.95);
-  opacity: 0.5;
-}
-
-.gallery-blur {
-  pointer-events: none;
-}
-
-/* Lightbox overlay */
-.lightbox {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.lightbox img {
-  max-width: 90%;
-  max-height: 80%;
-  border-radius: 10px;
-}
-
-/* Close button */
-.close-btn {
-  position: absolute;
-  top: 90px;
-  right: 20px;
-  background: gold;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 5px;
-}
-
-.hidden {
-  display: none;
-}
 /* ============================================================
    VIDEO
    ============================================================ */
@@ -1235,7 +1297,7 @@ input, textarea { font-family: var(--font-body); }
 }
 .video-title-overlay {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.5vw, 2.4rem);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-style: italic;
   color: var(--champagne);
 }
@@ -1726,6 +1788,9 @@ footer {
 </head>
 <body class="loading-active">
 
+<!-- CUSTOM CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
 
 <!-- SCROLL PROGRESS -->
 <div id="scroll-progress"></div>
@@ -1746,8 +1811,44 @@ footer {
   <div class="loading-text" id="loading-text">Preparing your celebration...</div>
 </div>
 
+<!-- MUSIC UPLOAD PANEL TOGGLE -->
+<button class="mup-toggle-btn" id="mup-toggle-btn" title="Music controls" aria-label="Music controls">
+  <i class="fa-solid fa-music"></i>
+</button>
+
+<!-- MUSIC UPLOAD PANEL -->
+<div id="music-upload-panel" class="hidden">
+  <div class="mup-title"><i class="fa-solid fa-music"></i> Music Controls</div>
+  <div class="mup-controls">
+    <label class="mup-btn" for="music-file-input">
+      <i class="fa-solid fa-upload"></i> Upload Music
+      <input type="file" id="music-file-input" accept="audio/*">
+    </label>
+    <button class="mup-btn" id="mup-play-pause-btn">
+      <i class="fa-solid fa-play" id="mup-play-icon"></i> <span id="mup-play-label">Play</span>
+    </button>
+    <button class="mup-btn" id="mup-stop-btn">
+      <i class="fa-solid fa-stop"></i> Stop
+    </button>
+    <label class="mup-btn" style="align-items:center;gap:0.5rem;">
+      <i class="fa-solid fa-volume-high"></i>
+      <input type="range" id="mup-volume" min="0" max="1" step="0.05" value="0.5"
+        style="flex:1;accent-color:var(--gold);cursor:pointer;">
+    </label>
+  </div>
+  <div class="mup-now-playing" id="mup-now-playing">No track loaded</div>
+</div>
+
 <!-- MUSIC HINT -->
-   <audio id="mySong" <source src="sand2.mp3" type=""></audio>
+<div id="music-hint">Tap Anywhere To Enable Music</div>
+<div id="music-indicator">
+  <div class="bar-wrap">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+</div>
 
 <!-- ====== NAV ====== -->
 <nav id="nav">
@@ -1756,6 +1857,8 @@ footer {
     <li><a href="#hero">Home</a></li>
     <li><a href="#event-info">Event</a></li>
     <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#wishes">Wishes</a></li>
+    <li><a href="#guestbook">Guestbook</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="tel:07767180140" class="nav-cta">RSVP Now</a></li>
   </ul>
@@ -1770,6 +1873,8 @@ footer {
   <a href="#event-info" class="mob-link">Event</a>
   <a href="#countdown" class="mob-link">Countdown</a>
   <a href="#gallery" class="mob-link">Gallery</a>
+  <a href="#wishes" class="mob-link">Wishes</a>
+  <a href="#guestbook" class="mob-link">Guestbook</a>
   <a href="#faq" class="mob-link">FAQ</a>
   <a href="tel:07767180140" class="mob-link" style="color:var(--gold)">RSVP</a>
 </div>
@@ -1780,15 +1885,16 @@ footer {
   <div class="hero-inner">
     <p class="hero-eyebrow">Sunday, 23 August 2026 · Wolverhampton</p>
     <div class="hero-image-wrap">
-      <img src="front.jpg" alt="Mhedey" class="hero-img">
+      <img src="ayy3.jpg" alt="Mhedey" class="hero-img">
     </div>
     <h1 class="hero-name">MHEDEY'S</h1>
     <p class="hero-subtitle">30th Birthday Celebration</p>
     <p class="hero-tagline">Talk Thirty To Me</p>
     <div class="hero-divider"></div>
     <div class="hero-buttons">
-      <a href="rsvp.html" class="btn-glass btn-gold">RSVP Now</a>
+      <a href="tel:07767180140" class="btn-glass btn-gold">RSVP Now</a>
       <a href="#event-info" class="btn-glass">View Event Details</a>
+      <a href="#guestbook" class="btn-glass">Send Birthday Wishes</a>
     </div>
   </div>
 </section>
@@ -1854,7 +1960,7 @@ footer {
         <div class="event-icon"><i class="fa-solid fa-shirt"></i></div>
         <div class="event-card-title">Dress Code</div>
         <div class="event-card-content">Elegant</div>
-        <div class="event-card-sub">Champagne · Mauve · Blush pink</div>
+        <div class="event-card-sub">Champagne · Mauve · Blush</div>
       </div>
       <div class="event-card">
         <div class="event-icon"><i class="fa-solid fa-wand-sparkles"></i></div>
@@ -1932,80 +2038,75 @@ footer {
 
     <div id="starters" class="menu-section active">
       <div class="menu-grid">
-        <div class="menu-card"><img src="smallchops.jpg" alt="Small Chops" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Small Chops</div><div class="menu-card-desc">Assorted bite-size appetisers</div></div></div>
-        <div class="menu-card"><img src="puffpuff.jpg" alt="Puff Puff" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Puff Puff</div><div class="menu-card-desc">Golden fried dough balls</div></div></div>
-        <div class="menu-card"><img src="springrolls.jpg" alt="Spring Rolls" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Spring Rolls</div><div class="menu-card-desc">Crispy vegetable spring rolls</div></div></div>
-        <div class="menu-card"><img src="samosas.jpg" alt="Samosas" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Samosas</div><div class="menu-card-desc">Spiced pastry parcels</div></div></div>
-        <div class="menu-card"><img src="peppersoup.jpg" alt="Pepper Soup" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Pepper Soup</div><div class="menu-card-desc">Spiced aromatic Nigerian soup</div></div></div>
-        <div class="menu-card"><img src="breadroll.jpg" alt="Bread Rolls" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Bread Rolls</div><div class="menu-card-desc">Warm, freshly baked rolls</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1548940740-204726a19be3?w=400&h=200&q=80&fit=crop" alt="Small Chops" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Small Chops</div><div class="menu-card-desc">Assorted bite-size appetisers</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1614961233913-a28d0b0ef9e1?w=400&h=200&q=80&fit=crop" alt="Puff Puff" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Puff Puff</div><div class="menu-card-desc">Golden fried dough balls</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400&h=200&q=80&fit=crop" alt="Spring Rolls" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Spring Rolls</div><div class="menu-card-desc">Crispy vegetable spring rolls</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=200&q=80&fit=crop" alt="Samosas" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Samosas</div><div class="menu-card-desc">Spiced pastry parcels</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=200&q=80&fit=crop" alt="Pepper Soup" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Pepper Soup</div><div class="menu-card-desc">Spiced aromatic Nigerian soup</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=200&q=80&fit=crop" alt="Bread Rolls" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Bread Rolls</div><div class="menu-card-desc">Warm, freshly baked rolls</div></div></div>
       </div>
     </div>
 
     <div id="mains" class="menu-section">
       <div class="menu-grid">
-        <div class="menu-card"><img src="jollofrice.jpg" alt="Jollof Rice" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Jollof Rice</div><div class="menu-card-desc">Party jollof — smoky & vibrant</div></div></div>
-        <div class="menu-card"><img src="friedrice.jpg" alt="Fried Rice" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Fried Rice</div><div class="menu-card-desc">Vegetable fried rice with herbs</div></div></div>
-        <div class="menu-card"><img src="amala.jpg" alt="Amala" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Amala</div><div class="menu-card-desc">Smooth yam flour with gbegiri and ewedu</div></div></div>
-        
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1565299715199-866c917206bb?w=400&h=200&q=80&fit=crop" alt="Jollof Rice" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Jollof Rice</div><div class="menu-card-desc">Party jollof — smoky & vibrant</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1512058556646-c4da40fba323?w=400&h=200&q=80&fit=crop" alt="Fried Rice" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Fried Rice</div><div class="menu-card-desc">Vegetable fried rice with herbs</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=200&q=80&fit=crop" alt="Amala" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Amala</div><div class="menu-card-desc">Smooth yam flour with gbegiri</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=200&q=80&fit=crop" alt="Fish" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Grilled Fish</div><div class="menu-card-desc">Marinated whole fish, grilled to perfection</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=400&h=200&q=80&fit=crop" alt="Turkey" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Turkey</div><div class="menu-card-desc">Seasoned roast turkey portions</div></div></div>
       </div>
     </div>
 
     <div id="sides" class="menu-section">
       <div class="menu-grid">
-        <div class="menu-card"><img src="salad.jpg" alt="Salad" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Salad / Coleslaw</div><div class="menu-card-desc">Fresh seasonal garden salad with Sweetcorn, kidney beans & carrots</div></div></div>
-
-        <div class="menu-card"><img src="stewed-cabbage.jpg" alt="Cabbage" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Stewed Cabbage</div><div class="menu-card-desc">Lightly seasoned cabbage</div></div></div>
-        <div class="menu-card"><img src="cucumber.jpg" alt="Cucumber" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Fresh Cucumber</div><div class="menu-card-desc">Cool and refreshing slices</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=200&q=80&fit=crop" alt="Salad" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Salad / Coleslaw</div><div class="menu-card-desc">Fresh seasonal garden salad</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=400&h=200&q=80&fit=crop" alt="Sweetcorn" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Sweetcorn & Beans</div><div class="menu-card-desc">Sweetcorn, kidney beans & carrots</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&h=200&q=80&fit=crop" alt="Cabbage" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Stewed Cabbage</div><div class="menu-card-desc">Lightly seasoned cabbage</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1582284540020-8acbe03f4924?w=400&h=200&q=80&fit=crop" alt="Cucumber" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Fresh Cucumber</div><div class="menu-card-desc">Cool and refreshing slices</div></div></div>
       </div>
     </div>
 
     <div id="desserts" class="menu-section">
       <div class="menu-grid">
-        <div class="menu-card"><img src="cheesecake.jpg" alt="Cheesecake" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Cheesecake</div><div class="menu-card-desc">Two indulgent flavours</div></div></div>
-        <div class="menu-card"><img src="freshfruits.jpg" alt="Fresh Fruits" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Fresh Fruits</div><div class="menu-card-desc">Seasonal fruit platter</div></div></div>
-        <div class="menu-card"><img src="grapes-berries.jpg" alt="Grapes" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Grapes & Berries</div><div class="menu-card-desc">Mixed grapes and fresh berries</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=400&h=200&q=80&fit=crop" alt="Cheesecake" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Cheesecake</div><div class="menu-card-desc">Two indulgent flavours</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&h=200&q=80&fit=crop" alt="Fresh Fruits" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Fresh Fruits</div><div class="menu-card-desc">Seasonal fruit platter</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1562447457-579fc34967fb?w=400&h=200&q=80&fit=crop" alt="Grapes" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Grapes & Berries</div><div class="menu-card-desc">Mixed grapes and fresh berries</div></div></div>
       </div>
     </div>
 
     <div id="drinks" class="menu-section">
       <div class="menu-grid" style="max-width:400px;margin:0 auto;">
-        <div class="menu-card"><img src="mocktails.jpg" alt="Mocktails" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Mocktails</div><div class="menu-card-desc">Elegant non-alcoholic cocktails served throughout the evening</div></div></div>
+        <div class="menu-card"><img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=200&q=80&fit=crop" alt="Mocktails" class="menu-card-img"><div class="menu-card-body"><div class="menu-card-name">Mocktails</div><div class="menu-card-desc">Elegant non-alcoholic cocktails served throughout the evening</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-
+<!-- ====== WISHES CAROUSEL ====== -->
+<section id="wishes">
+  <div class="container text-center">
+    <p class="section-eyebrow reveal">Love & Celebrations</p>
+    <h2 class="section-title reveal">Birthday <em>Wishes</em></h2>
+    <p class="section-sub reveal">Words of love from those who cherish you most</p>
+    <div class="swiper wishes-swiper">
+      <div class="swiper-wrapper" id="wishes-swiper-wrap"></div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+</section>
 
 <!-- ====== GALLERY ====== -->
 <section id="gallery">
   <div class="container">
-    
-    <p class="section-eyebrow text-center">Memories</p>
-    <h2 class="section-title text-center">
-      A Life in <em>Pictures</em>
-    </h2>
-    <p class="section-sub text-center">
-      Three decades of precious moments captured in time
-    </p>
-    
-    <!-- FILTER BUTTONS -->
+    <p class="section-eyebrow text-center reveal">Memories</p>
+    <h2 class="section-title text-center reveal">A Life in <em>Pictures</em></h2>
+    <p class="section-sub text-center reveal">Three decades of precious moments captured in time</p>
     <div class="gallery-tabs">
       <button class="gallery-tab active" data-cat="all">All</button>
-      <button class="gallery-tab" data-cat="childhood">Childhood</button>
-      <button class="gallery-tab" data-cat="recent">Recent</button>
-      <button class="gallery-tab" data-cat="family">Family</button>
-    </div>
-    
-    <!-- GALLERY GRID -->
+      
     <div class="gallery-masonry" id="gallery-grid"></div>
-    
-    <!-- LIGHTBOX -->
-    <div id="lightbox" class="lightbox hidden">
-      <button id="closeLightbox" class="close-btn">&times;</button>
-      <img id="lightboxImg" src="" alt="Preview">
-    </div>
-    
   </div>
 </section>
 
@@ -2016,14 +2117,54 @@ footer {
     <h2 class="section-title reveal">A Journey Through <em>30 Amazing Years</em></h2>
     <p class="section-sub reveal">Relive the moments that made Mhedey who she is today</p>
     <div class="video-wrap reveal">
-      <img src="ayy3.jpg" class="video-thumb">
+      <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200&h=675&q=80&fit=crop" alt="Video Thumbnail" class="video-thumb">
+      <div class="video-overlay">
+        <div class="play-btn"><i class="fa-solid fa-play" style="margin-left:4px"></i></div>
         <div class="video-title-overlay">A Journey Through 30 Amazing Years</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ====== GUESTBOOK ====== -->
+<section id="guestbook">
+  <div class="container">
+    <p class="section-eyebrow text-center reveal">Leave A Message</p>
+    <h2 class="section-title text-center reveal">Sign the <em>Guestbook</em></h2>
+    <p class="section-sub text-center reveal">Your words will be treasured forever</p>
 
+    <div class="guestbook-form reveal">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" id="gb-name" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your Message</label>
+        <textarea class="form-textarea" id="gb-message" placeholder="Write your birthday wish here..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Upload Your Photo</label>
+        <label class="form-photo-upload" for="gb-photo">
+          <i class="fa-solid fa-camera"></i>
+          <p>Click to upload a photo</p>
+          <input type="file" id="gb-photo" accept="image/*">
+        </label>
+        <div id="gb-photo-preview" style="margin-top:0.8rem;display:none;">
+          <img id="gb-photo-img" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)">
+        </div>
+      </div>
+      <button class="btn-submit" onclick="submitGuestbookLocal()">
+        <i class="fa-solid fa-heart"></i> &nbsp; Add to Wish Wall
+      </button>
+      <button class="btn-whatsapp" onclick="submitGuestbookWhatsApp()">
+        <i class="fa-brands fa-whatsapp"></i> &nbsp; Send Wish via WhatsApp
+      </button>
+      <div class="wish-status" id="wish-status"></div>
+    </div>
+
+    <div class="wish-wall" id="wish-wall"></div>
+  </div>
+</section>
 
 <!-- ====== GIFT ====== -->
 <section id="gift">
@@ -2110,6 +2251,7 @@ footer {
   <nav class="footer-links">
     <a href="#hero">Home</a>
     <a href="#gallery">Gallery</a>
+    <a href="#wishes">Wishes</a>
     <a href="#faq">FAQ</a>
     <a href="tel:07767180140">RSVP</a>
   </nav>
@@ -2136,33 +2278,38 @@ footer {
 /* ============================================================
    DATA
    ============================================================ */
+const WISHES_DATA = [
+  { name: "Aisha Okonkwo", rel: "Best Friend", text: "Thirty looks absolutely stunning on you! You've always been my rock and my greatest inspiration. Here's to a decade even more magical than your twenties. I love you to the moon and back!", avatar: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Tunde Adeyemi", rel: "Brother", text: "My big sis is thirty and still the most radiant, brilliant person I know. Watching you grow has been one of the greatest joys of my life. Happy Birthday!", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Blessing Nwosu", rel: "Cousin", text: "To the woman who taught me that elegance is not about what you wear, but how you carry yourself — Happy 30th! You are everything and more.", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "David Osei", rel: "Colleague", text: "Working alongside you has been such an honour. Your dedication, passion and warmth light up every room you walk into. Thirty suits you perfectly!", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Mama Chiamaka", rel: "Mother", text: "My darling daughter, thirty years ago you changed my life forever. Every day I watch you bloom into the remarkable woman you are, and my heart overflows with pride and love.", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Ngozi Peters", rel: "University Friend", text: "From our dormitory days to this incredible milestone — I'm so proud of you! You've built something truly beautiful. Happy 30th to my forever friend!", avatar: "https://images.unsplash.com/photo-1554151228-14d9def656e4?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Emmanuel Chukwu", rel: "Mentor", text: "Thirty years of grace, resilience and excellence. You are proof that the best chapters are still being written. Keep shining, Mhedey!", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Fatima Bello", rel: "Childhood Friend", text: "I've known you since we were tiny! Watching you become this force of nature fills my heart with so much joy. Thirty looks breathtaking on you!", avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Chidi Eze", rel: "Family Friend", text: "Here's to a woman who redefines what it means to be fabulous at thirty. Your warmth, laughter and kindness make the world a better place. Happy Birthday!", avatar: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=150&h=150&q=80&fit=crop&crop=face" },
+  { name: "Adaeze Obi", rel: "Sorority Sister", text: "Our queen is THIRTY! You have been a light in my life since the day we met. May this new chapter bring you everything your beautiful heart desires. We love you!", avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=150&h=150&q=80&fit=crop&crop=face" }
+];
 
 const GALLERY_DATA = [
-   { src: "child7.jpg", cat: "childhood", caption: "Childhood Memories" },
-  { src: "child6.jpg", cat: "childhood", caption: "A Beautiful Soul" },
-  { src: "child5.jpg", cat: "childhood", caption: "Laughter & Joy" },
-  { src: "child4.jpg", cat: "childhood", caption: "Growing Up" },
-   { src: "child3.jpg", cat: "childhood", caption: "Childhood Memories" },
-  { src: "child2.jpg", cat: "childhood", caption: "A Beautiful Soul" },
-  { src: "child1.jpg", cat: "childhood", caption: "Laughter & Joy" },
-  { src: "child.jpg", cat: "childhood", caption: "Growing Up" },
   { src: "ay.jpg", cat: "recent", caption: "Radiant & Thriving" },
   { src: "ay1.jpg", cat: "family", caption: "Family Moments" },
-  { src: "ayy2.jpg", cat: "recent", caption: "Friends Forever" },
-  { src: "ayy3.jpg", cat: "recent", caption: "Celebrating in Style" },
-  { src: "ayy4.jpg", cat: "recent", caption: "Family Reunion" },
-  { src: "ay5.jpg", cat: "recent", caption: "Girls' Night Out" },
-  { src: "ayy.jpg", cat: "recent", caption: "Career Milestones" },
-  { src: "ayy2.jpg", cat: "recent", caption: "Team Achievement" },
-  { src: "recent5.jpg", cat: "recent", caption: "Together Always" },
-  { src: "recent4.jpg", cat: "recent", caption: "Glowing at 30" },
-  { src: "recent3.jpg", cat: "recent", caption: "Professional Pride" },
-  { src: "recent2.jpg", cat: "recent", caption: "Professional Pride" },
-  { src: "recent.jpg", cat: "recent", caption: "Professional Pride" },
-  { src: "recent1.jpg", cat: "recent", caption: "Professional Pride" },
-  { src: "ayy3.jpg", cat: "recent", caption: "Professional Pride" },
-  { src: "ayy4.jpg", cat: "recent", caption: "Professional Pride" },
-  { src: "ayy5.jpg", cat: "recent", caption: "Professional Pride" }
+  { src: "ay2.jpg", cat: "friends", caption: "Friends Forever" },
+  { src: "ay3.jpg", cat: "recent", caption: "Celebrating in Style" },
+  { src: "ay4.jpg", cat: "family", caption: "Family Reunion" },
+  { src: "ay5.jpg", cat: "friends", caption: "Girls' Night Out" },
+  { src: "ay6.jpg", cat: "career", caption: "Career Milestones" },
+  { src: "ay7.jpg", cat: "career", caption: "Team Achievement" },
+  { src: "ay8.jpg", cat: "childhood", caption: "Childhood Memories" },
+  { src: "ay9.jpg", cat: "recent", caption: "A Beautiful Soul" },
+  { src: "ayy.jpg", cat: "friends", caption: "Laughter & Joy" },
+  { src: "ayy1.jpg", cat: "childhood", caption: "Growing Up" },
+  { src: "ayy2.jpg", cat: "family", caption: "Together Always" },
+  { src: "ayy3.jpg", cat: "recent", caption: "Glowing at 30" },
+  { src: "ayy4.jpg", cat: "career", caption: "Professional Pride" },
+  { src: "ayy5.jpg", cat: "career", caption: "Professional Pride" },
+  { src: "ayy6.jpg", cat: "career", caption: "Professional Pride" },
+  { src: "ayy7.jpg", cat: "career", caption: "Professional Pride" }
 ];
 
 const TIMELINE_DATA = [
@@ -2240,6 +2387,22 @@ const loadInterval = setInterval(() => {
 /* ============================================================
    CUSTOM CURSOR
    ============================================================ */
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+});
+
+function animateCursor() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
 
 document.querySelectorAll('a,button,.menu-card,.event-card,.gift-card,.color-card,.faq-q,.gallery-item').forEach(el => {
   el.addEventListener('mouseenter', () => { ring.style.width = '60px'; ring.style.height = '60px'; dot.style.transform = 'translate(-50%,-50%) scale(1.5)'; });
@@ -2350,22 +2513,238 @@ function launchConfetti() {
 }
 
 /* ============================================================
-   MUSIC (WebAudio tone synth — no external file needed)
+   MUSIC — UPLOADABLE AUDIO PLAYER
    ============================================================ */
-const audio = document.getElementById("mySong");
-let lastTap = 0;
+const musicHint = document.getElementById('music-hint');
+const musicInd  = document.getElementById('music-indicator');
 
-// For touch
-function startAudio() {
-  if (!played) {
-    audio.play();
-    played = true;
+let bgAudio = null;
+let musicLoaded = false;
+
+// Music upload panel toggle
+const mupToggleBtn = document.getElementById('mup-toggle-btn');
+const mupPanel     = document.getElementById('music-upload-panel');
+mupToggleBtn.addEventListener('click', e => {
+  e.stopPropagation();
+  mupPanel.classList.toggle('hidden');
+});
+document.addEventListener('click', e => {
+  if (!mupPanel.contains(e.target) && e.target !== mupToggleBtn) {
+    mupPanel.classList.add('hidden');
   }
-}
-document.body.addEventListener("click", () => {
-  audio.play();
 });
 
+// File upload
+document.getElementById('music-file-input').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (bgAudio) { bgAudio.pause(); bgAudio.src = ''; }
+  bgAudio = new Audio(URL.createObjectURL(file));
+  bgAudio.loop = true;
+  bgAudio.volume = parseFloat(document.getElementById('mup-volume').value);
+  bgAudio.play();
+  musicLoaded = true;
+  musicHint.classList.add('hidden');
+  musicInd.classList.add('active');
+  document.getElementById('mup-now-playing').innerHTML = 'Now playing: <span>' + file.name + '</span>';
+  document.getElementById('mup-play-icon').className = 'fa-solid fa-pause';
+  document.getElementById('mup-play-label').textContent = 'Pause';
+});
+
+// Play/pause
+document.getElementById('mup-play-pause-btn').addEventListener('click', () => {
+  if (!bgAudio) return;
+  if (bgAudio.paused) {
+    bgAudio.play();
+    document.getElementById('mup-play-icon').className = 'fa-solid fa-pause';
+    document.getElementById('mup-play-label').textContent = 'Pause';
+    musicInd.classList.add('active');
+  } else {
+    bgAudio.pause();
+    document.getElementById('mup-play-icon').className = 'fa-solid fa-play';
+    document.getElementById('mup-play-label').textContent = 'Play';
+    musicInd.classList.remove('active');
+  }
+});
+
+// Stop
+document.getElementById('mup-stop-btn').addEventListener('click', () => {
+  if (!bgAudio) return;
+  bgAudio.pause();
+  bgAudio.currentTime = 0;
+  document.getElementById('mup-play-icon').className = 'fa-solid fa-play';
+  document.getElementById('mup-play-label').textContent = 'Play';
+  musicInd.classList.remove('active');
+});
+
+// Volume
+document.getElementById('mup-volume').addEventListener('input', function() {
+  if (bgAudio) bgAudio.volume = parseFloat(this.value);
+});
+
+// Show hint if no music yet
+setTimeout(() => {
+  if (!musicLoaded) {
+    musicHint.style.opacity = '1';
+    setTimeout(() => { musicHint.style.opacity = '0'; }, 4000);
+  }
+}, 2000);
+
+/* ============================================================
+   GUESTBOOK — WHATSAPP + LOCAL WALL
+   ============================================================ */
+// Celebrant WhatsApp number (international, no +)
+const CELEBRANT_WA = '447767180140';
+
+let gbPhoto = null;
+const gbPhotoInput = document.getElementById('gb-photo');
+gbPhotoInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    gbPhoto = ev.target.result;
+    document.getElementById('gb-photo-img').src = gbPhoto;
+    document.getElementById('gb-photo-preview').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+// Load existing wishes from backend, fall back to localStorage
+async function loadWishes() {
+  try {
+    const res = await fetch('/api/wishes');
+    if (!res.ok) throw new Error();
+    const wishes = await res.json();
+    wishes.forEach(addWishCard);
+    return;
+  } catch(_) {}
+  // Fallback: localStorage
+  const saved = JSON.parse(localStorage.getItem('mhedey_wishes') || '[]');
+  saved.forEach(addWishCard);
+}
+loadWishes();
+
+function getFormValues() {
+  const name = document.getElementById('gb-name').value.trim();
+  const msg  = document.getElementById('gb-message').value.trim();
+  return { name, msg };
+}
+
+function clearForm() {
+  document.getElementById('gb-name').value = '';
+  document.getElementById('gb-message').value = '';
+  document.getElementById('gb-photo-preview').style.display = 'none';
+  gbPhoto = null;
+}
+
+function setStatus(text, type) {
+  const el = document.getElementById('wish-status');
+  el.textContent = text;
+  el.className = 'wish-status ' + (type || '');
+  if (type === 'success') setTimeout(() => { el.textContent = ''; el.className = 'wish-status'; }, 5000);
+}
+
+async function saveWish(name, msg) {
+  const wish = { name, msg, photo: gbPhoto || 'ay.jpg' };
+  // Try backend first
+  try {
+    const res = await fetch('/api/wishes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(wish)
+    });
+    if (res.ok) return wish;
+  } catch(_) {}
+  // Fallback: localStorage
+  const wishes = JSON.parse(localStorage.getItem('mhedey_wishes') || '[]');
+  wishes.push(wish);
+  localStorage.setItem('mhedey_wishes', JSON.stringify(wishes));
+  return wish;
+}
+
+// Button 1: Add to wish wall on this site (all devices see it via backend)
+async function submitGuestbookLocal() {
+  const { name, msg } = getFormValues();
+  if (!name || !msg) { setStatus('Please enter your name and message.', 'error'); return; }
+  setStatus('Sending...', '');
+  const wish = await saveWish(name, msg);
+  addWishCard(wish);
+  clearForm();
+  launchConfetti();
+  setStatus('Your wish has been added to the wall! 🎉', 'success');
+  document.getElementById('wish-wall').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Button 2: Send directly to celebrant's WhatsApp
+function submitGuestbookWhatsApp() {
+  const { name, msg } = getFormValues();
+  if (!name || !msg) { setStatus('Please enter your name and message.', 'error'); return; }
+  const text = encodeURIComponent(
+    `🎂 *Birthday Wish for Mhedey!*\n\n*From:* ${name}\n\n"${msg}"\n\n_Sent via your birthday website 🥂_`
+  );
+  window.open(`https://wa.me/${CELEBRANT_WA}?text=${text}`, '_blank');
+  setStatus('WhatsApp opened — your wish is on its way! 💚', 'success');
+  // Also save to wall
+  saveWish(name, msg).then(wish => addWishCard(wish));
+  clearForm();
+  launchConfetti();
+}
+
+function addWishCard({ name, msg, photo }) {
+  const wall = document.getElementById('wish-wall');
+  const card = document.createElement('div');
+  card.className = 'wish-wall-card';
+  card.innerHTML = `
+    <img src="${photo}" alt="${name}" class="wish-wall-photo">
+    <div class="wish-wall-name">${name}</div>
+    <div class="wish-wall-text">"${msg}"</div>
+    <div class="wish-wall-wa"><i class="fa-brands fa-whatsapp"></i> Sent to Mhedey</div>`;
+  wall.insertBefore(card, wall.firstChild);
+}
+
+/* ============================================================
+   PARTICLES
+   ============================================================ */
+function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  const ctx = canvas.getContext('2d');
+  let W = canvas.width = window.innerWidth;
+  let H = canvas.height = window.innerHeight;
+
+  const particles = Array.from({ length: 60 }, () => ({
+    x: Math.random() * W,
+    y: Math.random() * H,
+    r: Math.random() * 2 + 0.5,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: -Math.random() * 0.4 - 0.1,
+    opacity: Math.random() * 0.5 + 0.1,
+    color: ['#D4AF37','#F7E7CE','#6B2137','#D8A7B1'][Math.floor(Math.random()*4)]
+  }));
+
+  window.addEventListener('resize', () => {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  });
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = p.opacity;
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.y < -10) { p.y = H + 10; p.x = Math.random() * W; }
+      if (p.x < 0) p.x = W;
+      if (p.x > W) p.x = 0;
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
 
 /* ============================================================
    BALLOONS
@@ -2411,116 +2790,64 @@ TIMELINE_DATA.forEach((title, i) => {
 /* ============================================================
    SWIPER – WISHES
    ============================================================ */
+const swiperWrap = document.getElementById('wishes-swiper-wrap');
+WISHES_DATA.forEach(w => {
+  const slide = document.createElement('div');
+  slide.className = 'swiper-slide';
+  slide.innerHTML = `
+    <div class="wish-card">
+      <img src="${w.avatar}" alt="${w.name}" class="wish-avatar">
+      <div class="wish-quote">"</div>
+      <p class="wish-text">${w.text}</p>
+      <div class="wish-name">${w.name}</div>
+      <div class="wish-relation">${w.rel}</div>
+    </div>`;
+  swiperWrap.appendChild(slide);
+});
+
+new Swiper('.wishes-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 30,
+  loop: true,
+  autoplay: { delay: 5000, disableOnInteraction: false },
+  pagination: { el: '.swiper-pagination', clickable: true },
+  navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+  breakpoints: { 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }
+});
 
 /* ============================================================
    GALLERY
    ============================================================ */
-const galleryGrid = document.getElementById("gallery-grid");
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightboxImg");
-const closeBtn = document.getElementById("closeLightbox");
-
-function renderGallery(category = "all") {
-  
-  galleryGrid.innerHTML = "";
-  
-  const items =
-    category === "all" ?
-    GALLERY_DATA :
-    GALLERY_DATA.filter(item => item.cat === category);
-  
+const galleryGrid = document.getElementById('gallery-grid');
+function renderGallery(cat) {
+  galleryGrid.innerHTML = '';
+  const items = cat === 'all' ? GALLERY_DATA : GALLERY_DATA.filter(i => i.cat === cat);
   items.forEach(item => {
-    
-    const card = document.createElement("div");
-    card.className = "gallery-item";
-    
-    card.innerHTML = `
+    const el = document.createElement('div');
+    el.className = 'gallery-item';
+    el.setAttribute('data-cat', item.cat);
+    el.innerHTML = `
       <img src="${item.src}" alt="${item.caption}" loading="lazy">
-
       <div class="gallery-overlay">
         <p>${item.caption}</p>
-
         <div class="gallery-overlay-icons">
-
-          <a href="${item.src}" download onclick="event.stopPropagation()">
-            <i class="fa-solid fa-download"></i>
-          </a>
-
-          <a href="#" onclick="
-            event.preventDefault();
-            event.stopPropagation();
-
-            if(navigator.share){
-              navigator.share({
-                title:'Gallery Image',
-                text:'Check out this image',
-                url:'${item.src}'
-              });
-            }
-          ">
-            <i class="fa-solid fa-share-nodes"></i>
-          </a>
-
+          <a href="${item.src}" download title="Download"><i class="fa-solid fa-download"></i></a>
+          <a href="#" onclick="navigator.share&&navigator.share({url:'${item.src}'})" title="Share"><i class="fa-solid fa-share-nodes"></i></a>
         </div>
-      </div>
-    `;
-    
-    card.addEventListener("click", () => {
-      openLightbox(item.src, card);
-    });
-    
-    galleryGrid.appendChild(card);
+      </div>`;
+    galleryGrid.appendChild(el);
   });
 }
+renderGallery('all');
 
-function openLightbox(src, clickedCard) {
-  
-  lightboxImg.src = src;
-  lightbox.classList.remove("hidden");
-  
-  galleryGrid.classList.add("gallery-blur");
-  
-  document.querySelectorAll(".gallery-item").forEach(item => {
-    item.classList.remove("active");
-  });
-  
-  clickedCard.classList.add("active");
-}
-
-function closeLightboxFunc() {
-  
-  lightbox.classList.add("hidden");
-  galleryGrid.classList.remove("gallery-blur");
-  
-  document.querySelectorAll(".gallery-item").forEach(item => {
-    item.classList.remove("active");
-  });
-}
-
-closeBtn.addEventListener("click", closeLightboxFunc);
-
-lightbox.addEventListener("click", (e) => {
-  if (e.target === lightbox) {
-    closeLightboxFunc();
-  }
-});
-
-document.querySelectorAll(".gallery-tab").forEach(tab => {
-  
-  tab.addEventListener("click", () => {
-    
-    document.querySelectorAll(".gallery-tab").forEach(btn => {
-      btn.classList.remove("active");
-    });
-    
-    tab.classList.add("active");
-    
+document.querySelectorAll('.gallery-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
     renderGallery(tab.dataset.cat);
   });
-  
 });
 
-renderGallery();
 /* ============================================================
    MENU TABS
    ============================================================ */
@@ -2560,57 +2887,6 @@ FAQ_DATA.forEach(({ q, a }) => {
   });
   faqList.appendChild(item);
 });
-
-/* ============================================================
-   GUESTBOOK
-   ============================================================ */
-let gbPhoto = null;
-const gbPhotoInput = document.getElementById('gb-photo');
-gbPhotoInput.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    gbPhoto = ev.target.result;
-    document.getElementById('gb-photo-img').src = gbPhoto;
-    document.getElementById('gb-photo-preview').style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-});
-
-// Load existing wishes
-const savedWishes = JSON.parse(localStorage.getItem('mhedey_wishes') || '[]');
-savedWishes.forEach(addWishCard);
-
-function submitGuestbook() {
-  const name = document.getElementById('gb-name').value.trim();
-  const msg = document.getElementById('gb-message').value.trim();
-  if (!name || !msg) { alert('Please enter your name and message!'); return; }
-
-  const wish = { name, msg, photo: gbPhoto || 'ay.jpg' };
-  const wishes = JSON.parse(localStorage.getItem('mhedey_wishes') || '[]');
-  wishes.push(wish);
-  localStorage.setItem('mhedey_wishes', JSON.stringify(wishes));
-
-  addWishCard(wish);
-  document.getElementById('gb-name').value = '';
-  document.getElementById('gb-message').value = '';
-  document.getElementById('gb-photo-preview').style.display = 'none';
-  gbPhoto = null;
-  launchConfetti();
-  document.getElementById('wish-wall').scrollIntoView({ behavior: 'smooth' });
-}
-
-function addWishCard({ name, msg, photo }) {
-  const wall = document.getElementById('wish-wall');
-  const card = document.createElement('div');
-  card.className = 'wish-wall-card';
-  card.innerHTML = `
-    <img src="${photo}" alt="${name}" class="wish-wall-photo">
-    <div class="wish-wall-name">${name}</div>
-    <div class="wish-wall-text">"${msg}"</div>`;
-  wall.insertBefore(card, wall.firstChild);
-}
 
 /* ============================================================
    INITIAL SCROLL REVEAL
